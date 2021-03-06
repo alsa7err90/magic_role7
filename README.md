@@ -10,11 +10,11 @@ Run the Composer require command from the Terminal:
 
 - Open config/app.php and add this line to your Service Providers Array.
 
-      alsa7err90\magic_roles\rolesServiceProvider::class,
+      alsa7err90\magic_role7\rolesServiceProvider::class,
 
 - Open config/app.php and add this line to your Aliases:
 
-      'ViewRoles' => alsa7err90\magic_roles\ViewRolesFacade::class,
+      'ViewRoles' => alsa7err90\magic_role7\ViewRolesFacade::class,
 
 - Publish  files with 
 
@@ -92,7 +92,7 @@ and add role to users
 -nameController: name class controller ex:
 we have controller by name:
 
-       use alsa7err90\magic_roles\MagicRole; 
+       use alsa7err90\magic_role7\MagicRole; 
        class Postcontroller extends Component
        {
           public function show ()
@@ -141,7 +141,7 @@ if you do not want use the defualt route you can use blade directory inside any 
      @mag_permission
 
 just write anyone from this and will get a table or a form or both of them.
-if you want edit style this tables or forms go to folder vendor/alsa7err90/mag_role/src/view
+if you want edit style this tables or forms go to folder vendor/alsa7err90/magic_role7/src/view
 and select any file you want to edit.
 
            
