@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use alsa7err90\magic_roles\MagicRole;
+use alsa7err90\magic_role7\MagicRole;
 use App\Magrole;
 use App\User;
 use Illuminate\Http\Request;
