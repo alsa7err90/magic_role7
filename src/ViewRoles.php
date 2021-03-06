@@ -1,5 +1,5 @@
 <?php
-namespace alsa7err90\magic_roles;
+namespace alsa7err90\magic_role7;
 
 use App\Magrole;
 use App\User;
