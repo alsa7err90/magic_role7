@@ -17,7 +17,7 @@ class ViewRoles
         return $magUsers[0];
     }
 
-    public function is_has_role($mag_role) :bool
+    public function his_role($mag_role) :bool
     {
         $user_id = Auth::user()->id;
         $user = User::findOrFail($user_id);
@@ -25,7 +25,7 @@ class ViewRoles
 
     }
 
-    public function is_has_permission($mag_permission) :bool
+    public function his_permission($mag_permission) :bool
     {
         $user_id = Auth::user()->id;
         $user = User::findOrFail($user_id);
