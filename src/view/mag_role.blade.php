@@ -64,7 +64,7 @@
                 @forelse ($roles as $role)
                     <tr>
                         <td> - <a >{{ $role->name }}</a></td>
-                        <td><a class="btn btn-default" href="{{ URL::to('mag_roles/' . $role->id) }}">edit permission</a></td>
+                        <td><a class="btn btn-default" href="{{ URL::to('mag_roles/' . $role->id) }}">edit permissions</a></td>
                         <td>
                             <form action="{{ url('mag_roles/' .  $role->id ) }}" method="POST">
                                 @csrf
