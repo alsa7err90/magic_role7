@@ -17,15 +17,14 @@ class ViewRoles
         return $magUsers[0];
     }
 
-    public function his_role($mag_role) :bool
+    public function is_has_role($mag_role) :bool
     {
         $user_id = Auth::user()->id;
         $user = User::findOrFail($user_id);
         return ($user->hasRole($mag_role)) ?? false;
-
     }
 
-    public function his_permission($mag_permission) :bool
+    public function is_has_permission($mag_permission) :bool
     {
         $user_id = Auth::user()->id;
         $user = User::findOrFail($user_id);
