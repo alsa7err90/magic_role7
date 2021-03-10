@@ -1,18 +1,146 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ URL::to('/') }}">home </a>
+
+<style>
+    .menu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    .menu li {
+        float: left;
+        display: inline;
+    }
+
+    .menu li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .menu li a:hover:not(.active) {
+        background-color: #111;
+    }
+
+    .menu .active {
+        background-color: rgb(77, 48, 241);
+    }
+
+    @media screen and (min-width: 480px) {
+        input[type=text] {
+            width: 30%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid rgb(77, 48, 241);
+            border-radius: 4px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid rgb(77, 48, 241);
+            border-radius: 4px;
+        }
+    }
+
+    .button {
+        background-color: rgb(77, 48, 241);
+        /* Green */
+        border: 1px solid rgb(77, 48, 241);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .container1{
+        background-color: rgb(255, 255, 255);
+
+        box-shadow: 5px 5px 8px 5px #807474;
+        border-radius: 10px;
+        margin: auto;
+        width: 98%;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #customers td,
+    #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgb(25, 27, 29);
+        color: white;
+    }
+
+    .danger {
+        background-color: rgb(255, 30, 30);
+        color: #fff;
+        padding: 10px;
+        font-size: 14px;
+
+    }
+    .info {
+        background-color: rgb(77, 48, 241);
+        color: #fff;
+        padding: 10px;
+        font-size: 16px;
+        text-decoration: none;
+
+    }
+    .info:hover{
+        color: #fff;
+        text-decoration: none;
+    }
+</style>
+
+    <div class="container1">
+        <ul  class="menu">
+            <li>
+                <a href="{{ URL::to('/') }}">home </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ URL::to('mag_roles') }}">roles </a>
+            <li  class="active">
+                <a  href="{{ URL::to('mag_roles') }}">roles </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ URL::to('mag_permissions') }}">permissions </a>
+            <li >
+                <a  href="{{ URL::to('mag_permissions') }}">permissions </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ URL::to('mag_users') }}">users </a>
+            <li >
+                <a href="{{ URL::to('mag_users') }}">users </a>
             </li>
         </ul>
 
@@ -32,27 +160,18 @@
             </div>
         @endif
 
-        <div class="row mt-4">
-            <label class="mr-sm-2" for="form1">new role</label>
+        <div class="content">
+            <label for="form1">new role</label>
             <form action="{{ route('mag_roles.store') }}" id="form1" method="POST">
                 @csrf
-                <div class="row">
-                    <div class="col">
-                        <input class="form-control" type="text" name="name" placeholder="name">
-                    </div>
-                    <div class="col">
-                        <input class="form-control" type="text" name="slug" placeholder="slug">
-                    </div>
-
-                    <div class="col">
-                        <input type="submit" class="btn btn-primary" value="add">
-                    </div>
-                </div>
+                <input type="text" name="name" placeholder="name">
+                <input  type="text" name="slug" placeholder="slug">
+                <input type="submit" class="button" value="add">
             </form>
-        </div>
+
 
         <br>Roles : Choose one of the roles to edit <br>
-        <table class="table">
+        <table id="customers">
             <thead>
                 <tr>
                     <th scope="col">name</th>
@@ -63,12 +182,12 @@
             <tbody>
                 @forelse ($roles as $role)
                     <tr>
-                        <td> - <a>{{ $role->name }}</a></td>
-                        <td><a class="btn btn-default" href="{{ URL::to('mag_roles/' . $role->id) }}">edit permission</a></td>
+                        <td><a>{{ $role->name }}</a></td>
+                        <td><a class="info" href="{{ URL::to('mag_roles/' . $role->id) }}">edit permission</a></td>
                         <td>
                             <form action="{{ url('mag_roles/' .  $role->id ) }}" method="POST">
                                 @csrf
-                                <input class="btn btn-danger" type="submit" value="Delete" />
+                                <input class="danger" type="submit" value="Delete" />
                                 <input type="hidden" name="_method" value="delete" />
                             </form>
                         </td>
