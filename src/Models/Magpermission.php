@@ -12,4 +12,6 @@ class Magpermission extends Model
         return $this->belongsToMany(Magrole::class);
     }
 
+
+
 }

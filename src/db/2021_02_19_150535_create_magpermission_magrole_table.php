@@ -15,10 +15,16 @@ class CreateMagpermissionMagroleTable extends Migration
     {
         Schema::create('magpermission_magrole', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('magpermission_id');
-            $table->unsignedBigInteger('magrole_id');
-            $table->foreign('magpermission_id')->references('id')->on('magpermissions');
-            $table->foreign('magrole_id')->references('id')->on('magroles');
+            // $table->unsignedBigInteger('magpermission_id');
+            // $table->unsignedBigInteger('magrole_id');
+            // $table->foreign('magpermission_id')->references('id')->on('magpermissions')->onDelete('cascade');
+            // $table->foreign('magrole_id')->references('id')->on('magroles')->onDelete('cascade');
+
+
+            $table->unsignedBigInteger('magpermission_id')->index();
+            $table->foreign('magpermission_id')->references('id')->on('magpermissions')->onDelete('cascade');
+            $table->unsignedBigInteger('magrole_id')->index();
+            $table->foreign('magrole_id')->references('id')->on('magroles')->onDelete('cascade');
             $table->timestamps();
         });
     }

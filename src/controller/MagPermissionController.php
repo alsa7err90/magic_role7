@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use alsa7err90\magic_role7\MagicRole;
 use App\Magpermission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MagPermissionController extends Controller
 {
@@ -21,14 +22,15 @@ class MagPermissionController extends Controller
         $magic_role = new MagicRole();
         $magic_role->chakeRole('MagPermissionController','store') ;
         $request->validate([
-            'name' => 'required|max:30',
-            'slug' => 'required|max:30',
+            'name' => 'required|max:100|unique:magpermissions,name,'.$request->name,
+            'slug' => 'required|max:100|unique:magpermissions,slug,'.$request->slug,
         ]);
-        Magpermission::create([
-            'name' => $request->name,
-            'slug' => $request->slug
 
-        ]);
+            Magpermission::create([
+                'name' => $request->name,
+                'slug' => $request->slug
+
+            ]);
         return redirect()->back();
     } // end store
 
@@ -37,7 +39,9 @@ class MagPermissionController extends Controller
         $magic_role = new MagicRole();
         $magic_role->chakeRole('MagPermissionController','destroy1') ;
         $record = Magpermission::where('id', $id)->firstOrFail();;
-        $record->delete();
+        if($record->delete()){
+            DB::table('magpermission_magrole')->where('magpermission_id', '=',$id)->delete();
+        }
         return redirect()->back();
     } // end destroy
 
@@ -46,31 +50,11 @@ class MagPermissionController extends Controller
         $magic_role = new MagicRole();
         $magic_role->chakeRole('MagPermissionController','store') ;
         $models =  $this->getModels(app_path("http/controllers/"), "");
+
         foreach($models as $model)
         {
-            Magpermission::create
-            ([
-                'name' => 'show_'.$model,
-                'slug' => 'show_'.$model
-            ]);
+          $this->set_permission($model,['show','store','update','destroy1','destroy2']);
 
-            Magpermission::create
-            ([
-                'name' => 'store_'.$model,
-                'slug' => 'store_'.$model
-            ]);
-            Magpermission::create([
-                'name' => 'update_'.$model,
-                'slug' => 'update_'.$model
-            ]);
-            Magpermission::create([
-                'name' => 'destroy1_'.$model,
-                'slug' => 'destroy1_'.$model
-            ]);
-            Magpermission::create([
-                'name' => 'destroy2_'.$model,
-                'slug' => 'destroy2_'.$model
-            ]);
         }
         return redirect()->back();
     } // auto_insert_permission
@@ -91,5 +75,19 @@ class MagPermissionController extends Controller
         }
         return $out;
     } // getModels
+    public function set_permission($model,$does):void
+    {
+        foreach($does as $do){
+            $user = Magpermission::where('name', '=',$do.'_'.$model)->first();
+            if ($user === null) {
+                Magpermission::create([
+                    'name' => $do.'_'.$model,
+                    'slug' => $do.'_'.$model
+                ]);
+            }
+
+        }
+
+    }
 
 }

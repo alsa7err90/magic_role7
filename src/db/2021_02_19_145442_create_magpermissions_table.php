@@ -14,9 +14,9 @@ class CreateMagpermissionsTable extends Migration
     public function up()
     {
         Schema::create('magpermissions', function (Blueprint $table) {
-            $table->id();
-            $table->String('name');
-            $table->String('slug');
+            $table->id()->unsigned();;
+            $table->String('name')->unique();
+            $table->String('slug')->unique();
             $table->timestamps();
         });
     }

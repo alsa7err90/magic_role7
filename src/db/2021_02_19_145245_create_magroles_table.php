@@ -14,9 +14,9 @@ class CreateMagrolesTable extends Migration
     public function up()
     {
         Schema::create('magroles', function (Blueprint $table) {
-            $table->id();
-            $table->String('name');
-            $table->String('slug');
+            $table->id()->unsigned();;
+            $table->String('name')->unique();
+            $table->String('slug')->unique();
             $table->timestamps();
         });
     }

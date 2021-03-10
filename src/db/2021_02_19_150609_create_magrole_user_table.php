@@ -17,8 +17,11 @@ class CreateMagroleUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('magrole_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('magrole_id')->references('id')->on('magroles');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('cascade');
+            $table->foreign('magrole_id')->references('id')->on('magroles')
+            ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

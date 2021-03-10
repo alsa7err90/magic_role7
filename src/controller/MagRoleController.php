@@ -6,6 +6,7 @@ use alsa7err90\magic_role7\MagicRole;
 use App\Magpermission;
 use App\Magrole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MagRoleController extends Controller
 {
@@ -48,7 +49,10 @@ class MagRoleController extends Controller
         $magic_role = new MagicRole();
         $magic_role->chakeRole('MagRoleController','destroy1') ;
         $record = Magrole::where('id', $id)->firstOrFail();
-        $record->delete();
+        if($record->delete()){
+            DB::table('magpermission_magrole')->where('magrole_id', '=',$id)->delete();
+            DB::table('magrole_user')->where('magrole_id', '=',$id)->delete();
+        }
         return redirect()->back();
     } // end destroy
 
