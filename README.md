@@ -38,9 +38,35 @@ Run the Composer require command from the Terminal:
       {
           return $this->belongsToMany(Magrole::class);
       }
+      
+      public function assignRole(Magrole $role)
+      {
+          return $this->roles()->save($role);
+      }
+      
+- to assign Role delault for user after register :
+   open file "RegisterController.php" in foler "app/Http/Controllers/Auth" and edit function register from:
+   
+      this old code :
+      return User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($input['password']),
+       ]); 
+        
+      to new code :
+        $user = User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($input['password']),
+        ]);
+        $role = Magrole::where('name', 'user')->first();
+        $user->assignRole($role);
+        return $user;
 -Run the php artisan migrate command from the Terminal:
                
       php artisan migrate
+      
 - open file .env and add the line don't forget to replace the email by email adminstrator:
 
       EMAIL_ADMINISTRATOR=yourEmailAdmin@example.com
