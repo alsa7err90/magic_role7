@@ -121,12 +121,12 @@ and add role to users
 we have controller by name:
 
        use alsa7err90\magic_role7\MagicRole; 
-       class Postcontroller extends Component
+       class PostController extends Component
        {
           public function show ()
           {
                   $magic_role = new MagicRole();
-                  $magic_role->chakeRole('Postcontroller ', 'show');
+                  $magic_role->chakeRole('PostController ', 'show');
              ...............
            }
         }
