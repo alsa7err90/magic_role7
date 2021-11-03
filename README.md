@@ -148,17 +148,17 @@ we have controller by name:
        
  to check if user have any role as "admin":
        
-       $has_admin = ViewRoles::his_role("admin");
+       $has_admin = ViewRoles::is_has_role("admin");
  this will return true or false 
        
  to check if user have permission as "show_Controller" :
  
-       ViewRoles::his_permission("show_MagPermissionController");
+       ViewRoles::is_has_permission("show_MagPermissionController");
   this will return true or false 
   
  example for check  if he has permission to show links :
   
-               @if(ViewRoles::his_permission("show_PostController"))
+               @if(ViewRoles::is_has_permission("show_PostController"))
                     <a href='" {{ URL::to('Post') }} Post </a>
                @endif
                
